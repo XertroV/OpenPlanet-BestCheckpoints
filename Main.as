@@ -1247,6 +1247,7 @@ void Render() {
   dataCols += BoolToInt(showPB);
   dataCols += BoolToInt(showPBDelta);
   dataCols += BoolToInt(showBestPBDelta);
+  dataCols += BoolToInt(showRawCheckpoints);
   // speed
   dataCols += BoolToInt(showCurrentSpeed);
   dataCols += BoolToInt(shouldShowLastLapDelta && showLastLapSpeed);
@@ -1518,6 +1519,12 @@ void Render() {
         }
         PopPBColor();
 
+        if (showRawCheckpoints) {
+          UI::TableNextColumn();
+          SetMinWidth(timeWidth);
+          UI::Text("CP Time");
+        }
+
         if (showCurrentSpeed) {
           UI::TableNextColumn();
           SetMinWidth(deltaWidth);
@@ -1749,6 +1756,11 @@ void Render() {
         } else {
           UI::TableNextColumn();
           UI::TableNextColumn();
+        }
+
+        if (showRawCheckpoints) {
+          UI::TableNextColumn();
+          UI::Text(Time::Format(currTimesRec[i].time));
         }
 
         // speed
